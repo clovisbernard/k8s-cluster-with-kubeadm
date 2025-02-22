@@ -26,7 +26,6 @@ k8s-cluster-with-kubeadm/
 
 - **AWS account**: You will need access to an AWS account and proper IAM permissions.
 - **Terraform**: Install Terraform to deploy infrastructure.
-- **kubeadm**: The Kubernetes cluster is set up using `kubeadm`. Ensure you have `kubeadm`, `kubelet`, and `kubectl` installed.
 - **AWS CLI**: Install and configure the AWS CLI to interact with your AWS resources.
 
 ## Setup Instructions
