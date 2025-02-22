@@ -5,22 +5,22 @@ This repository provides scripts and Terraform configurations to set up a Kubern
 ## Structure
 
 The repository is organized into two main directories:
-
-- **install-components**: Contains scripts for installing and configuring Kubernetes components on master and worker nodes.
-  - `cilium-install.sh`: Script to install Cilium for CNI (Container Network Interface).
-  - `install-kubeadm-kubectl-kubelet.sh`: Script to install `kubeadm`, `kubectl`, and `kubelet` on the nodes.
-  - `init-kubeadm.sh`: Script to initialize the Kubernetes control plane (master node) with `kubeadm`.
-
-- **terraform-files**: Contains Terraform configurations for setting up infrastructure on AWS.
-  - `backend.tf`: Configures the backend for Terraform state.
-  - `data.tf`: Data sources for retrieving existing AWS resources.
-  - `ec2.tf`: Creates EC2 instances for the control plane and worker nodes.
-  - `output.tf`: Defines the output of the Terraform apply.
-  - `sg.tf`: Security group configurations for EC2 instances.
-  - `variables.tf`: Defines variables used in the Terraform configurations.
-  - `providers.tf`: Specifies the AWS provider configuration.
-  - `terraform.tfvars`: Contains variable values to be used with the Terraform configurations.
-  - `README1.md`: Basic documentation for Terraform configuration.
+``` plaintext
+k8s-cluster-with-kubeadm/
+├── install-components/
+│   ├── cilium-install.sh
+│   ├── install-kubeadm-kubectl-kubelet.sh
+│   ├── init-kubeadm.sh
+└── terraform-files/
+    ├── backend.tf
+    ├── data.tf
+    ├── ec2.tf
+    ├── output.tf
+    ├── sg.tf
+    ├── variables.tf
+    ├── providers.tf
+    └── terraform.tfvars
+```
 
 ## Prerequisites
 
