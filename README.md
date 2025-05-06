@@ -1,4 +1,4 @@
-# Kubernetes Cluster Setup with kubeadm
+# Kubernetes Cluster Setup with kubeadm-
 
 This repository provides scripts and Terraform configurations to set up a Kubernetes cluster with 1 control plane node and 2 worker nodes using `kubeadm`. The setup includes configuring EC2 instances on AWS and installing the required Kubernetes components, including `kubeadm`, `kubectl`, and `kubelet`.
 
