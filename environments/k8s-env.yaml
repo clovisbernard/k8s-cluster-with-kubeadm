@@ -1,0 +1,12 @@
+tags:
+  Project       : "k8s"
+  CreateBy      : "Terraform"
+  cloudProvider : "aws"
+
+k8s:
+  aws_region: "us-east-1"
+  instance_type : "t2.medium"
+  key_name      : "prometheus"
+  subnet_id     : "subnet-0c865055b7d71c13f"
+
+
