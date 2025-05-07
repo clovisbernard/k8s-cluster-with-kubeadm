@@ -1,0 +1,10 @@
+k8s-cluster-with-kubeadm.git/
+.terraform/
+.terraform.lock.hcl
+terraform.tfstate
+terraform.tfstate.backup
+*.zip
+*.tgz
+*.gz
+*.log
+.DS_Store
