@@ -83,6 +83,15 @@ Then check node status:
 ```bash
 kubectl get nodes
 ```
+You will see this ouput:
+```bash
+ubuntu@controlplane:~$ kubectl get no
+NAME            STATUS   ROLES           AGE    VERSION
+controlplane    Ready    control-plane   115s   v1.28.15
+worker-node-1   Ready    <none>          64s    v1.28.15
+worker-node-2   Ready    <none>          64s    v1.28.15
+```
+
 ### 4.Destroy Cluster
 Run the destroy script in the root folder:
 ```bash
