@@ -1,11 +1,22 @@
 # Kubernetes Cluster Deployment with Terraform and Kubeadm
 
 ## Overview
-This repository contains Terraform configurations and shell scripts to provision and configure a Kubernetes cluster using Kubeadm. The infrastructure is defined as code with Terraform, while cluster initialization and node joining are handled by the provided shell scripts.
+This repository automates the end-to-end provisioning of a Kubernetes cluster on AWS using Terraform and Kubeadm. The infrastructure is defined as code using Terraform to provision EC2 instances, security groups, and networking within the default VPC. Once provisioned, the cluster is initialized via shell scripts that configure the control plane and seamlessly join worker nodes.
+
+The goal is to provide a production-style setup with no manual intervention. This approach ensures reproducibility, scalability, and maintainability of your Kubernetes infrastructure using Infrastructure as Code (IaC) principles.
+
+Key Features:
+
+Automated provisioning of a 3-node Kubernetes cluster (1 control plane, 2 worker nodes)
+
+  - Kubernetes v1.28.1 installed using kubeadm
+  - SSH-based remote execution via Terraform null_resource provisioners
+  - Hostname assignment and swap disabling for Kubernetes readiness
+  - Dynamic creation and distribution of the kubeadm join command
+  - Clean destruction and teardown with a single script
+This setup is ideal for DevOps engineers, SREs, or learners looking to understand how Kubernetes clusters can be bootstrapped manually while leveraging modern automation tools.
 
 ## Repository Structure
-
-```plaintext
 .
 ├── environments
 │   └── k8s-env.yaml
@@ -24,7 +35,6 @@ This repository contains Terraform configurations and shell scripts to provision
     ├── setup-control-plane.sh
     └── setup-worker-node.sh
 
-```
 
 
 ## Prerequisites
@@ -52,13 +62,7 @@ k8s:
   key_name      : "prometheus"
 ```
 
-### 2. Cluster Initialization
-On the control plane node:
-```bash
-./scripts/setup-control-plane.sh
-```
-
-### 3. Launch the cluster
+### 2. Launch the cluster
 Run the install script in the root folder:
 ```bash
 bash k8s-install.sh
@@ -69,7 +73,7 @@ This will:
   - Set up the Kubernetes control plane
   - Join the worker nodes
 
-### 4. Connecting to Your Cluster
+### 3. Connecting to Your Cluster
 SSH into the control plane:
 ```bash
 ssh -i ~/.ssh/YOUR_KEY.pem ubuntu@<control_plane_public_ip>
@@ -78,7 +82,7 @@ Then check node status:
 ```bash
 kubectl get nodes
 ```
-### 5.Destroy Cluster
+### 4.Destroy Cluster
 Run the destroy script in the root folder:
 ```bash
 bash k8s-install.sh -destroy
