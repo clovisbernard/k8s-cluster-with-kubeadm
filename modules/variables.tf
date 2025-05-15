@@ -3,7 +3,6 @@ variable "daryn" {
     aws_region      = string
     instance_type   = string
     key_name        = string
-    subnet_id       = string
   })
   description = " "
 }

@@ -7,23 +7,23 @@ This repository contains Terraform configurations and shell scripts to provision
 
 ```plaintext
 .
-├── environments/
-│ └── k8s-env.yaml # Environment-specific configurations
-├── modules/ # Reusable Terraform modules
-│ ├── data.tf # Data sources definitions
-│ ├── main.tf # Primary resource definitions
-│ ├── output.tf # Module outputs
-│ ├── sg.tf # Security group configurations
-│ └── variables.tf # Input variables
-├── resources/ # Root Terraform configurations
-│ ├── main.tf # Main infrastructure definition
-│ ├── output.tf # Output variables
-│ ├── terraform.tfstate # Current Terraform state
-│ ├── terraform.tfstate.backup # State backup
-│ └── tfplan # Terraform execution plan
-└── scripts/ # Cluster setup scripts
-├── setup-control-plane.sh # Control plane initialization
-└── setup-worker-node.sh # Worker node joining
+├── environments
+│   └── k8s-env.yaml
+├── k8s-install.sh
+├── modules
+│   ├── data.tf
+│   ├── main.tf
+│   ├── output.tf
+│   ├── sg.tf
+│   └── variables.tf
+├── README.md
+├── resources
+│   ├── main.tf
+│   ├── output.tf
+└── scripts
+    ├── setup-control-plane.sh
+    └── setup-worker-node.sh
+
 ```
 
 
@@ -31,18 +31,25 @@ This repository contains Terraform configurations and shell scripts to provision
 
 - Terraform 1.0+ installed
 - kubectl configured
-- Cloud provider credentials configured (AWS/Azure/GCP)
+- Cloud provider credentials configured (AWS)
 - SSH key pair for node access
 
 ## Getting Started
 
-### 1. Infrastructure Provisioning
-
+### 1.Clone the repo
 ```bash
-cd resources/
-terraform init
-terraform plan -out=tfplan
-terraform apply tfplan
+git https://github.com/clovisbernard/k8s-cluster-with-kubeadm.git
+cd k8s-cluster-with-kubeadm
+```
+
+### 2.Edit variables
+Update the values in environments/k8s.yaml.
+
+```plaintext
+k8s:
+  aws_region: "us-east-1"
+  instance_type : "t2.medium"
+  key_name      : "prometheus"
 ```
 
 ### 2. Cluster Initialization
@@ -51,7 +58,29 @@ On the control plane node:
 ./scripts/setup-control-plane.sh
 ```
 
-On worker nodes:
+### 3. Launch the cluster
+Run the install script in the root folder:
 ```bash
-./scripts/setup-worker-node.sh <control-plane-ip> <token> <ca-cert-hash>
+bash k8s-install.sh
 ```
+This will:
+  - Initialize Terraform
+  - Create the infrastructure
+  - Set up the Kubernetes control plane
+  - Join the worker nodes
+
+### 4. Connecting to Your Cluster
+SSH into the control plane:
+```bash
+ssh -i ~/.ssh/YOUR_KEY.pem ubuntu@<control_plane_public_ip>
+```
+Then check node status:
+```bash
+kubectl get nodes
+```
+### 5.Destroy Cluster
+Run the destroy script in the root folder:
+```bash
+bash k8s-install.sh -destroy
+```
+This will destroy all Terraform-managed AWS resources.
