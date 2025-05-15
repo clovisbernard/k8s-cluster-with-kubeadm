@@ -17,6 +17,7 @@ Automated provisioning of a 3-node Kubernetes cluster (1 control plane, 2 worker
 This setup is ideal for DevOps engineers, SREs, or learners looking to understand how Kubernetes clusters can be bootstrapped manually while leveraging modern automation tools.
 
 ## Repository Structure
+```plaintext
 .
 ├── environments
 │   └── k8s-env.yaml
@@ -34,7 +35,7 @@ This setup is ideal for DevOps engineers, SREs, or learners looking to understan
 └── scripts
     ├── setup-control-plane.sh
     └── setup-worker-node.sh
-
+```
 
 
 ## Prerequisites
